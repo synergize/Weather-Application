@@ -15,11 +15,27 @@
     <Grid>
         <TextBox x:Name="txtZip" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" AcceptsReturn="False" AcceptsTab="False" Margin="161,172,161,0"/>
         <Button x:Name="btnSubmit" Content="Enter" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Click="btnSubmit_Click" Margin="184,202,184,0"/>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="202,112,202,0">
-            <Label x:Name="txtDegree" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Label x:Name="txtWeather" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Width="442" Margin="0,76,0,0">
+
+            <Label x:Name="txtDegree" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Width="442" HorizontalContentAlignment="Center" Visibility="Hidden" Loaded="txtDegree_Loaded">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtWeather" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" Width="442" FontSize="20" HorizontalContentAlignment="Center" Foreground="White" Visibility="Hidden">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+
 
         </StackPanel>
+        <Label x:Name="txtName" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" Margin="0,11,0,0" Foreground="White" Width="442" HorizontalContentAlignment="Center" Visibility="Hidden">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+        </Label>
+        <Image x:Name="imgBackground" HorizontalAlignment="Left" Height="450" Margin="82,176,0,0" VerticalAlignment="Top" Width="450"/>
 
     </Grid>
 </Window>

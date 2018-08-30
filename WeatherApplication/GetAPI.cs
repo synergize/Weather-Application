@@ -21,17 +21,19 @@ namespace WeatherApplication
         bool validate = false;
         public string temperatureOut { get; set; }
         public string weatherOut { get; set; }
+        public string nameOut { get; set; }
 
         public void getWeather(string zip)
         {
 
-            
-            using (StreamReader web = File.OpenText(@"C:\Users\vtrinks\Documents\apiTest.json"));
+
+            //using (StreamReader web = File.OpenText(@"C:\Users\vtrinks\Documents\apiTest.json"));
+                using (WebClient web = new WebClient())
             {
                 
                 zipInput = zip;
                 //Combines the zip code entered, the API key and a template for looking up via Zip code on the API. 
-                //url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
+                url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
 
                 Validation(url);
 
@@ -39,12 +41,12 @@ namespace WeatherApplication
                 {
 
                     //Acquires the data from the URL above and stores it into json variable. 
-                    //var json = web.DownloadString(url);
+                    var json = web.DownloadString(url);
 
 
-                    var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(File.ReadAllText(@"C:\Users\vtrinks\Documents\apiTest.json"));
+                  //  var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(File.ReadAllText(@"C:\Users\vtrinks\Documents\apiTest.json"));
                     //Breaks down the data from json and splits it into variables located in the GetWeather Class.
-                    //var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(json);
+                    var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(json);
                     //Takes the data from the RootObject class and provides it into a useable variable for manipulation or output.
                     GetWeather.RootObject output = result;
 
@@ -52,20 +54,7 @@ namespace WeatherApplication
                     ConvertDegrees Convert = new ConvertDegrees();
                     temperatureOut = Convert.convertFahrenheit(output.Main.Temp).ToString();
                     weatherOut = output.Weather[0].Description;
-
-
-                    //Console.WriteLine($"City Name: {output.Name}");
-                    //Console.WriteLine($"Country: {output.Sys.Country}");
-                    //Console.WriteLine($"Cod: {output.Cod}");
-                    //Console.WriteLine($"City Humidity: {output.Main.Humidity}");
-                    //Console.WriteLine($"City Visiblity: {output.Visibility}");
-
-                    //Console.WriteLine($"Weather Description {output.Weather[0].Description}");
-
-
-                    //Console.WriteLine($"Current Temperature Fahrenheit: °{Convert.convertFahrenheit(output.Main.Temp)}");
-                    //Console.WriteLine($"Current Temp Celsius: °{Convert.convertCelsius(output.Main.Temp)}");
-                    //Console.ReadLine();
+                    nameOut = output.Name;
                 }
                 else
                 {
