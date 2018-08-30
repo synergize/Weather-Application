@@ -20,9 +20,26 @@ namespace WeatherApplication
     /// </summary>
     public partial class MainWindow : Window
     {
+            string Degree = "0°";
+            string Weather = "null";
         public MainWindow()
         {
             InitializeComponent();
+            txtDegree.Content = Degree;
+            txtWeather.Content = Weather;
+
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+
+            string zipInput = "92618";
+            GetAPI testing = new GetAPI();
+            testing.getWeather(zipInput);
+            txtDegree.Content = testing.temperatureOut;
+            txtWeather.Content = testing.weatherOut;
+            
+            
         }
     }
 }
