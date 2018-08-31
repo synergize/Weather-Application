@@ -19,13 +19,8 @@ using System.Reflection;
 
 namespace WeatherApplication
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        string Degree = "0°";
-        string Weather = "null";
         GetAPI testing = new GetAPI();
         public MainWindow()
         {
@@ -139,6 +134,7 @@ namespace WeatherApplication
             txtDegree.Content = "Enter a zip code to check the weather!";
             txtDegree.Visibility = Visibility.Visible;
             txtDegree.Foreground = new SolidColorBrush(Color.FromArgb(255, 31, 181, 238));
+            this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
         }//Visual modifications for labels when loading the program.
         private void DetermineBackground()
         {
@@ -147,6 +143,26 @@ namespace WeatherApplication
                 this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
 
             }
+        } //Currently unused and inprogress.
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            //About Menu Button
+            MessageBox.Show("Greetings! This is my first application making use of an API called OpenWeatherMap. It can be located here, https://openweathermap.org/.", "About This Weather Application");
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            //Forecast Menu Button
+            Forecast forecastWindow = new Forecast();
+            forecastWindow.Show();
+            //this.Close();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            //Exit Application Menu Button
+            Application.Current.Shutdown();
         }
     }
 }

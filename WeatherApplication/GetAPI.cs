@@ -16,7 +16,7 @@ namespace WeatherApplication
     {
         string zipInput = "";
         //Unique API Key provided from OpenWeatherMap
-        string apiKey = "445ddb6bf3e34f9c627843a0d7fc99dd";
+        string apiKey = System.Environment.GetEnvironmentVariable("WEATHER_KEY");
         string url = "";
         bool validate = false;
         public string temperatureOut { get; set; }
@@ -55,6 +55,7 @@ namespace WeatherApplication
                     temperatureOut = Convert.convertFahrenheit(output.Main.Temp).ToString();
                     weatherOut = output.Weather[0].Description;
                     nameOut = output.Name;
+                    
                 }
                 else
                 {
@@ -70,8 +71,8 @@ namespace WeatherApplication
             {
                 using (WebClient web = new WebClient())
                 {
-                    //url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
-                    //json = web.DownloadString(url);
+                    url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
+                    json = web.DownloadString(url);
                     //File.WriteAllText(@"C:\Users\vtrinks\Documents\apiTest.json", JsonConvert.SerializeObject(json));
 
                 }

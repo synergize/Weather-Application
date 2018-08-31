@@ -1,0 +1,27 @@
+﻿<Window x:Class="WeatherApplication.Forecast"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeatherApplication"
+        mc:Ignorable="d"
+        Title="Forecast" Height="450" Width="450">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush />
+        </Grid.Background>
+        <DockPanel Margin="0,0,0,391">
+            <Menu DockPanel.Dock="Top" Height="40">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Exit" Click="MenuItem_Click_3" />
+                </MenuItem>
+                <MenuItem Header="_Tools">
+                    <MenuItem Header="_Forecast" Click="MenuItem_Click_2" />
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_Help" Click="MenuItem_Click_1" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+    </Grid>
+</Window>
