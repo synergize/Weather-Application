@@ -27,7 +27,7 @@ namespace WeatherApplication
         {
 
 
-            //using (StreamReader web = File.OpenText(@"C:\Users\vtrinks\Documents\apiTest.json"));
+            
                 using (WebClient web = new WebClient())
             {
                 
@@ -44,7 +44,7 @@ namespace WeatherApplication
                     var json = web.DownloadString(url);
 
 
-                  //  var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(File.ReadAllText(@"C:\Users\vtrinks\Documents\apiTest.json"));
+                  
                     //Breaks down the data from json and splits it into variables located in the GetWeather Class.
                     var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(json);
                     //Takes the data from the RootObject class and provides it into a useable variable for manipulation or output.
@@ -73,7 +73,7 @@ namespace WeatherApplication
                 {
                     url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
                     json = web.DownloadString(url);
-                    //File.WriteAllText(@"C:\Users\vtrinks\Documents\apiTest.json", JsonConvert.SerializeObject(json));
+                   
 
                 }
                 return validate = true;
