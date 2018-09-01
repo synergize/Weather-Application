@@ -22,6 +22,13 @@ namespace WeatherApplication
         public string temperatureOut { get; set; }
         public string weatherOut { get; set; }
         public string nameOut { get; set; }
+        public string windOut { get; set; }
+        public string cloudsOut { get; set; }
+        public string pressureOut { get; set; }
+        public string humidOut { get; set; }
+        public string sunriseOut { get; set; }
+        public string sunsetOut { get; set; }
+        public string coordsOut { get; set; }
 
         public void getWeather(string zip)
         {
@@ -55,6 +62,14 @@ namespace WeatherApplication
                     temperatureOut = Convert.convertFahrenheit(output.Main.Temp).ToString();
                     weatherOut = output.Weather[0].Description;
                     nameOut = output.Name;
+                    windOut = $"Speed: {output.Wind.Speed} m/h";
+                    cloudsOut = output.Clouds.All.ToString();
+                    pressureOut = $"{output.Main.Pressure.ToString()} hpa";
+                    humidOut = $"{output.Main.Humidity.ToString()}%";
+                    sunriseOut = TimeSpan.FromSeconds(output.Sys.Sunrise).ToString();
+                    sunsetOut = TimeSpan.FromSeconds(output.Sys.Sunset).ToString();
+                    coordsOut = $"Latitude: {output.Coord.Lat} Longitude: {output.Coord.Lon}";
+                    
                     
                 }
                 else

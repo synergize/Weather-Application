@@ -23,5 +23,38 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
+        <TextBox x:Name="txtZip_Forecast" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" AcceptsReturn="False" AcceptsTab="False" Margin="312,0,10,0" Text="Test">
+        </TextBox>
+
+        <TabControl HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="442">
+            <TabItem Header="Current Weather">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="59*"/>
+                        <ColumnDefinition Width="129*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="#FF95E676" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Label x:Name="txtName" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" Margin="-3,11,-3,0" Foreground="White" Width="442" HorizontalContentAlignment="Center" Visibility="Visible" Grid.ColumnSpan="3">
+                        <Label.Effect>
+                            <DropShadowEffect/>
+                        </Label.Effect>
+                    </Label>
+                    <Button x:Name="btnSubmit_Forecast" Content="Enter" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Click="btnSubmit_Click" Margin="10,389,358,0">
+                        <Button.Effect>
+                            <DropShadowEffect/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Forecast">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
