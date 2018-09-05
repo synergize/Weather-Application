@@ -31,6 +31,7 @@ namespace WeatherApplication
         public string sunriseOut { get; set; }
         public string sunsetOut { get; set; }
         public string coordsOut { get; set; }
+        public Image pictureTest { get; set; }
 
         public void getWeather(string zip)
         {
@@ -51,41 +52,22 @@ namespace WeatherApplication
                 {
                     //Acquires the data from the URL above and stores it into json variable. 
                     
-                    //var json = web.DownloadString(url);
                     var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(openWeather);
                     GetWeather.RootObject openOutput = result;
                     url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");
                     var darkWeather = web.DownloadString(url);
                     var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(darkWeather);
 
-
-                    // ConvertDegrees Convert = new ConvertDegrees();
-                    // temperatureOut = Convert.convertFahrenheit(openOutput.Main.Temp).ToString();
-                    // weatherOut = openOutput.Weather[0].Description;
-                    // nameOut = openOutput.Name;
-                    // windOut = $"Speed: {openOutput.Wind.Speed} m/h";
-                    // cloudsOut = openOutput.Clouds.All.ToString();
-                    // pressureOut = $"{openOutput.Main.Pressure.ToString()} hpa";
-                    // humidOut = $"{openOutput.Main.Humidity.ToString()}%";
-                    // var sunrise = openOutput.Sys.Sunrise;
-                    // var sunset = openOutput.Sys.Sunset;
-                    //// sunriseOut = DateTime(output.Sys.Sunrise.ToString());
-                    //// sunsetOut = DateTime(output.Sys.Sunset.ToString());
-                    // coordsOut = $"Latitude: {openOutput.Coord.Lat} Longitude: {openOutput.Coord.Lon}";
-
-                    //ConvertDegrees Convert = new ConvertDegrees();
                     temperatureOut = Convert.ToInt32(darkResult.currently.temperature).ToString(); 
                     weatherOut = darkResult.currently.summary;
                     nameOut = darkResult.timezone;
-                    windOut = $"Speed: {darkResult.currently.windSpeed} m/h";
-                    cloudsOut = darkResult.currently.cloudCover.ToString();
-                    pressureOut = $"{darkResult.currently.pressure.ToString()} hpa";
-                    humidOut = $"{darkResult.currently.humidity.ToString()}%";
-                    var sunrise = openOutput.Sys.Sunrise;
-                    var sunset = openOutput.Sys.Sunset;
-                    // sunriseOut = DateTime(output.Sys.Sunrise.ToString());
-                    // sunsetOut = DateTime(output.Sys.Sunset.ToString());
-                    coordsOut = $"Latitude: {openOutput.Coord.Lat} Longitude: {openOutput.Coord.Lon}";
+                    windOut = $"{darkResult.currently.windSpeed} mph";
+                    cloudsOut = $"{darkResult.currently.cloudCover * 100}%";
+                    pressureOut = $"{Convert.ToInt32(darkResult.currently.pressure)} hpa";
+                    humidOut = $"{darkResult.currently.humidity * 100}%";
+                    sunriseOut = $"{DateTime(darkResult.daily.data[0].sunriseTime.ToString())}"; //sunrise time output
+                    sunsetOut = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
+                    coordsOut = $"Latitude: {openOutput.Coord.Lat}      Longitude: {openOutput.Coord.Lon}";
 
                 }
                 else
@@ -123,10 +105,9 @@ namespace WeatherApplication
 
         public string DateTime(string input)
         {
-            input = TimeSpan.FromSeconds(Convert.ToDouble(input)).ToString();
-            DateTime Time = new DateTime(Convert.ToInt64(input));
-            var output = Time.ToShortTimeString();
-            return output;
+            DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            
+            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
         }//Converted time input and outputs to readable format.
     }
 }
