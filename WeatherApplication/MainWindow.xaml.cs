@@ -31,31 +31,33 @@ namespace WeatherApplication
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-
+            
             string zipInput = txtZip.Text;
-
             testing.getWeather(zipInput);
-            DetermineColor();
-            txtName.Visibility = Visibility.Visible;
-            txtDegree.Visibility = Visibility.Visible;
-            txtWeather.Visibility = Visibility.Visible;
-            txtClouds.Visibility = Visibility.Visible;
-            txtWind.Visibility = Visibility.Visible;
-            txtPressure.Visibility = Visibility.Visible;
-            txtCoordinates.Visibility = Visibility.Visible;
-            txtSunrise.Visibility = Visibility.Visible;
-            txtSunset.Visibility = Visibility.Visible;
-            txtHumidity.Visibility = Visibility.Visible;
-            txtDegree.Content = $"{ testing.temperatureOut}°";
-            txtWeather.Content = $"{testing.weatherOut.First().ToString().ToUpper()}{testing.weatherOut.Substring(1)}";
-            txtName.Content = testing.nameOut;
-            txtWind.Content = testing.windOut;
-            txtClouds.Content = testing.cloudsOut;
-            txtPressure.Content = testing.pressureOut;
-            txtCoordinates.Content = testing.coordsOut;
-            txtSunrise.Content = testing.sunriseOut;
-            txtSunset.Content = testing.sunsetOut;
-            txtHumidity.Content = testing.humidOut;
+            if (testing.validate == true)
+            {
+                DetermineColor();
+                txtName.Visibility = Visibility.Visible;
+                txtDegree.Visibility = Visibility.Visible;
+                txtWeather.Visibility = Visibility.Visible;
+                txtClouds.Visibility = Visibility.Visible;
+                txtWind.Visibility = Visibility.Visible;
+                txtPressure.Visibility = Visibility.Visible;
+                txtCoordinates.Visibility = Visibility.Visible;
+                txtSunrise.Visibility = Visibility.Visible;
+                txtSunset.Visibility = Visibility.Visible;
+                txtHumidity.Visibility = Visibility.Visible;
+                txtDegree.Content = $"{ testing.temperatureOut}°";
+                txtWeather.Content = $"{testing.weatherOut.First().ToString().ToUpper()}{testing.weatherOut.Substring(1)}";
+                txtName.Content = testing.nameOut;
+                txtWind.Content = testing.windOut;
+                txtClouds.Content = testing.cloudsOut;
+                txtPressure.Content = testing.pressureOut;
+                txtCoordinates.Content = testing.coordsOut;
+                txtSunrise.Content = testing.sunriseOut;
+                txtSunset.Content = testing.sunsetOut;
+                txtHumidity.Content = testing.humidOut;
+            }
 
         }
         protected override void OnClosing(CancelEventArgs e)

@@ -17,8 +17,10 @@ namespace WeatherApplication
         string zipInput = "";
         //Unique API Key provided from OpenWeatherMap
         string apiKey = System.Environment.GetEnvironmentVariable("WEATHER_KEY");
+        string darkAPI = System.Environment.GetEnvironmentVariable("DARK_KEY");
         string url = "";
-        bool validate = false;
+
+        public bool validate { get; set; }
         public string temperatureOut { get; set; }
         public string weatherOut { get; set; }
         public string nameOut { get; set; }
@@ -42,35 +44,49 @@ namespace WeatherApplication
                 //Combines the zip code entered, the API key and a template for looking up via Zip code on the API. 
                 url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
 
-                Validation(url);
+                var openWeather = Validation(url);
+                
 
                 if (validate == true)
                 {
-
                     //Acquires the data from the URL above and stores it into json variable. 
-                    var json = web.DownloadString(url);
-
-
-                  
-                    //Breaks down the data from json and splits it into variables located in the GetWeather Class.
-                    var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(json);
-                    //Takes the data from the RootObject class and provides it into a useable variable for manipulation or output.
-                    GetWeather.RootObject output = result;
-
-                
-                    ConvertDegrees Convert = new ConvertDegrees();
-                    temperatureOut = Convert.convertFahrenheit(output.Main.Temp).ToString();
-                    weatherOut = output.Weather[0].Description;
-                    nameOut = output.Name;
-                    windOut = $"Speed: {output.Wind.Speed} m/h";
-                    cloudsOut = output.Clouds.All.ToString();
-                    pressureOut = $"{output.Main.Pressure.ToString()} hpa";
-                    humidOut = $"{output.Main.Humidity.ToString()}%";
-                    sunriseOut = TimeSpan.FromSeconds(output.Sys.Sunrise).ToString();
-                    sunsetOut = TimeSpan.FromSeconds(output.Sys.Sunset).ToString();
-                    coordsOut = $"Latitude: {output.Coord.Lat} Longitude: {output.Coord.Lon}";
                     
-                    
+                    //var json = web.DownloadString(url);
+                    var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(openWeather);
+                    GetWeather.RootObject openOutput = result;
+                    url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");
+                    var darkWeather = web.DownloadString(url);
+                    var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(darkWeather);
+
+
+                    // ConvertDegrees Convert = new ConvertDegrees();
+                    // temperatureOut = Convert.convertFahrenheit(openOutput.Main.Temp).ToString();
+                    // weatherOut = openOutput.Weather[0].Description;
+                    // nameOut = openOutput.Name;
+                    // windOut = $"Speed: {openOutput.Wind.Speed} m/h";
+                    // cloudsOut = openOutput.Clouds.All.ToString();
+                    // pressureOut = $"{openOutput.Main.Pressure.ToString()} hpa";
+                    // humidOut = $"{openOutput.Main.Humidity.ToString()}%";
+                    // var sunrise = openOutput.Sys.Sunrise;
+                    // var sunset = openOutput.Sys.Sunset;
+                    //// sunriseOut = DateTime(output.Sys.Sunrise.ToString());
+                    //// sunsetOut = DateTime(output.Sys.Sunset.ToString());
+                    // coordsOut = $"Latitude: {openOutput.Coord.Lat} Longitude: {openOutput.Coord.Lon}";
+
+                    //ConvertDegrees Convert = new ConvertDegrees();
+                    temperatureOut = Convert.ToInt32(darkResult.currently.temperature).ToString(); 
+                    weatherOut = darkResult.currently.summary;
+                    nameOut = darkResult.timezone;
+                    windOut = $"Speed: {darkResult.currently.windSpeed} m/h";
+                    cloudsOut = darkResult.currently.cloudCover.ToString();
+                    pressureOut = $"{darkResult.currently.pressure.ToString()} hpa";
+                    humidOut = $"{darkResult.currently.humidity.ToString()}%";
+                    var sunrise = openOutput.Sys.Sunrise;
+                    var sunset = openOutput.Sys.Sunset;
+                    // sunriseOut = DateTime(output.Sys.Sunrise.ToString());
+                    // sunsetOut = DateTime(output.Sys.Sunset.ToString());
+                    coordsOut = $"Latitude: {openOutput.Coord.Lat} Longitude: {openOutput.Coord.Lon}";
+
                 }
                 else
                 {
@@ -80,27 +96,37 @@ namespace WeatherApplication
 
             }
         }
-        public bool Validation(string json)
+        public string Validation(string json)
         {
             try
             {
                 using (WebClient web = new WebClient())
                 {
-                    url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
+                    //openUrl = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
                     json = web.DownloadString(url);
-                   
+                    validate = true;
 
                 }
-                return validate = true;
+                return json;
             }
             catch (WebException wex)
             {
                 if (wex.Source != null)
                 {
                     MessageBox.Show("Please enter a valid United States Zip Code.");
+
                 }
-                return validate = false;
+                validate = false;
             }
+            return null;
         } //Input validation to ensure a zip code is added.
+
+        public string DateTime(string input)
+        {
+            input = TimeSpan.FromSeconds(Convert.ToDouble(input)).ToString();
+            DateTime Time = new DateTime(Convert.ToInt64(input));
+            var output = Time.ToShortTimeString();
+            return output;
+        }//Converted time input and outputs to readable format.
     }
 }

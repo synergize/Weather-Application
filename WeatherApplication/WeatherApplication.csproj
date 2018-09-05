@@ -82,6 +82,7 @@
       <DependentUpon>Forecast.xaml</DependentUpon>
     </Compile>
     <Compile Include="GetAPI.cs" />
+    <Compile Include="GetDarkSky.cs" />
     <Compile Include="GetWeather.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
