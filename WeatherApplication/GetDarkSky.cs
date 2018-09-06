@@ -27,7 +27,7 @@ namespace WeatherApplication
             public int windBearing { get; set; }
             public double cloudCover { get; set; }
             public int uvIndex { get; set; }
-            public int visibility { get; set; }
+            public double visibility { get; set; }
             public double ozone { get; set; }
         }
 
@@ -67,12 +67,12 @@ namespace WeatherApplication
             public string precipType { get; set; }
         }
 
-        public class Hourly
-        {
-            public string summary { get; set; }
-            public string icon { get; set; }
-            public List<Datum2> data { get; set; }
-        }
+        //public class Hourly
+        //{
+        //    public string summary { get; set; }
+        //    public string icon { get; set; }
+        //    public List<Datum2> data { get; set; }
+        //}
 
         public class Datum3
         {
@@ -105,7 +105,7 @@ namespace WeatherApplication
             public double cloudCover { get; set; }
             public int uvIndex { get; set; }
             public int uvIndexTime { get; set; }
-            public int visibility { get; set; }
+            public double visibility { get; set; }
             public double ozone { get; set; }
             public double temperatureMin { get; set; }
             public int temperatureMinTime { get; set; }
@@ -138,7 +138,7 @@ namespace WeatherApplication
             public string timezone { get; set; }
             public Currently currently { get; set; }
             public Minutely minutely { get; set; }
-            public Hourly hourly { get; set; }
+            //public Hourly hourly { get; set; }
             public Daily daily { get; set; }
             public Flags flags { get; set; }
             public int offset { get; set; }

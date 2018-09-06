@@ -34,13 +34,9 @@ namespace WeatherApplication
         public Image pictureTest { get; set; }
 
         public void getWeather(string zip)
-        {
-
-
-            
+        {            
                 using (WebClient web = new WebClient())
-            {
-                
+            {                
                 zipInput = zip;
                 //Combines the zip code entered, the API key and a template for looking up via Zip code on the API. 
                 url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
@@ -79,8 +75,6 @@ namespace WeatherApplication
                 {
                     
                 }
-
-
             }
         }
         public string Validation(string json)
@@ -111,8 +105,9 @@ namespace WeatherApplication
         public string DateTime(string input)
         {
             DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            
-            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
+
+            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
+            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
         }//Converted time input and outputs to readable format.
     }
 }
