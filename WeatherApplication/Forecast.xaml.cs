@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace WeatherApplication
 {
@@ -22,7 +24,7 @@ namespace WeatherApplication
         public Forecast()
         {
             InitializeComponent();
-            this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
+            
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
@@ -43,6 +45,66 @@ namespace WeatherApplication
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void CreateDataTable()
+        {
+            DataTable dt = new DataTable();            
+            dtTest.DataContext = dt;
+            DataColumn colDay = new DataColumn("Day", typeof(string));
+            DataColumn colLoc = new DataColumn("Location", typeof(string));
+            DataColumn colTemp = new DataColumn("Temperature", typeof(string));
+            DataColumn colWeatherType = new DataColumn("Weather Type", typeof(string));
+            DataColumn colSpeed = new DataColumn("Wind Speed", typeof(string));
+            DataColumn colClouds = new DataColumn("Cloud Coverage", typeof(string));
+            DataColumn colPressure = new DataColumn("Pressure", typeof(string));
+            DataColumn colSunrise = new DataColumn("Sunrise", typeof(string));
+            DataColumn colSunset = new DataColumn("Sunset", typeof(string));
+            DataColumn colHumidity = new DataColumn("Humidity", typeof(string));
+            DataColumn colLat = new DataColumn("Latitude", typeof(string));
+            DataColumn colLong = new DataColumn("Longitude", typeof(string));
+
+            dt.Columns.Add(colDay);
+            dt.Columns.Add(colLoc);
+            dt.Columns.Add(colTemp);
+            dt.Columns.Add(colWeatherType);
+            dt.Columns.Add(colSpeed);
+            dt.Columns.Add(colClouds);
+            dt.Columns.Add(colPressure);
+            dt.Columns.Add(colSunrise);
+            dt.Columns.Add(colSunset);
+            dt.Columns.Add(colHumidity);
+            dt.Columns.Add(colLat);
+            dt.Columns.Add(colLong);
+
+            DataRow windSpeed;
+            windSpeed = dt.NewRow();
+            windSpeed[colDay] = "Test";
+            windSpeed[colLoc] = "Testing";
+            //DataRow firstRow = dt.NewRow();
+            //firstRow[0] = "Testing";
+
+            dt.Rows.Add(windSpeed);
+            dtTest.ItemsSource = dt.DefaultView;
+
+            
+
+        }
+
+        private void txtZip_Forecast_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void dtTest_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
+            dtTest.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
+            CreateDataTable();
         }
     }
 }

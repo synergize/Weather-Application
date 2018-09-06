@@ -69,6 +69,11 @@ namespace WeatherApplication
                     sunsetOut = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
                     coordsOut = $"Latitude: {openOutput.Coord.Lat}      Longitude: {openOutput.Coord.Lon}";
 
+                    for (int i = 0; i < darkResult.daily.data.Count; i++)
+                    {
+                        MessageBox.Show(DateTime(darkResult.daily.data[i].time.ToString()));
+                    }
+
                 }
                 else
                 {
