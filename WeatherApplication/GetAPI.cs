@@ -14,13 +14,12 @@ namespace WeatherApplication
 {
     class GetAPI
     {
-        string zipInput = "";
         //Unique API Key provided from OpenWeatherMap
         string apiKey = System.Environment.GetEnvironmentVariable("WEATHER_KEY");
         string darkAPI = System.Environment.GetEnvironmentVariable("DARK_KEY");
         string url = "";
 
-        public bool validate { get; set; }
+       // public bool validate { get; set; }
         public string temperatureOut { get; set; }
         public string weatherOut { get; set; }
         public string nameOut { get; set; }
@@ -31,30 +30,31 @@ namespace WeatherApplication
         public string sunriseOut { get; set; }
         public string sunsetOut { get; set; }
         public string coordsOut { get; set; }
-        public Image pictureTest { get; set; }
 
-        public void getWeather(string zip)
-        {            
-                using (WebClient web = new WebClient())
-            {                
-                zipInput = zip;
-                //Combines the zip code entered, the API key and a template for looking up via Zip code on the API. 
-                url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
+        public void getWeather()
+        {
+            //using (WebClient web = new WebClient())
+            //{                
+            //zipInput = zip;
+            //Combines the zip code entered, the API key and a template for looking up via Zip code on the API. 
+            //url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
 
-                var openWeather = Validation(url);
-                
-
-                if (validate == true)
+            //var openWeather = Validation(url);
+            StoreAPIData darkAPIData = new StoreAPIData();
+            GetWeather openAPIData = new GetWeather();
+                if (darkAPIData.validation == true)                
                 {
                     //Acquires the data from the URL above and stores it into json variable. 
                     
-                    var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(openWeather);
-                    GetWeather.RootObject openOutput = result;
-                    url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");
-                    var darkWeather = web.DownloadString(url);
-                    var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(darkWeather);
+                    //var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(openWeather);
+                    //GetWeather.RootObject openOutput = result;
+                   // url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");
+                   // var darkWeather = web.DownloadString(url);
+                    var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(darkAPIData._darkWeather);
+                    var openOutput = JsonConvert.DeserializeObject<GetWeather.RootObject>(darkAPIData._openWeather);
 
-                    temperatureOut = Convert.ToInt32(darkResult.currently.temperature).ToString(); 
+
+                temperatureOut = Convert.ToInt32(darkResult.currently.temperature).ToString(); 
                     weatherOut = darkResult.currently.summary;
                     nameOut = darkResult.timezone;
                     windOut = $"{darkResult.currently.windSpeed} mph";
@@ -64,50 +64,35 @@ namespace WeatherApplication
                     sunriseOut = $"{DateTime(darkResult.daily.data[0].sunriseTime.ToString())}"; //sunrise time output
                     sunsetOut = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
                     coordsOut = $"Latitude: {openOutput.Coord.Lat}      Longitude: {openOutput.Coord.Lon}";
-
-                    for (int i = 0; i < darkResult.daily.data.Count; i++)
-                    {
-                        MessageBox.Show(DateTime(darkResult.daily.data[i].time.ToString()));
-                    }
-
+                    PassForecast(darkResult);
                 }
                 else
                 {
                     
                 }
-            }
+            //}
         }
-        public string Validation(string json)
+
+        
+        public void PassForecast(GetDarkSky.RootObject rootObject)
         {
-            try
+            GetForecast update = new GetForecast();
+            for (int i = 1; i < rootObject.daily.data.Count - 1; i++)
             {
-                using (WebClient web = new WebClient())
-                {
-                    //openUrl = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
-                    json = web.DownloadString(url);
-                    validate = true;
-
-                }
-                return json;
+                DateTime day = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                update.foreDay[i] = day.AddSeconds(Convert.ToDouble(rootObject.daily.data[i].time)).DayOfWeek.ToString();
+                update.foreLoc[i] = rootObject.timezone;
             }
-            catch (WebException wex)
-            {
-                if (wex.Source != null)
-                {
-                    MessageBox.Show("Please enter a valid United States Zip Code.");
 
-                }
-                validate = false;
-            }
-            return null;
-        } //Input validation to ensure a zip code is added.
+        }
 
         public string DateTime(string input)
         {
             DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
-            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
+            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
+            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
         }//Converted time input and outputs to readable format.
+
     }
 }

@@ -22,6 +22,7 @@ namespace WeatherApplication
     public partial class MainWindow : Window
     {
         GetAPI testing = new GetAPI();
+        StoreAPIData pullData = new StoreAPIData();
         public MainWindow()
         {
 
@@ -33,9 +34,11 @@ namespace WeatherApplication
         {
             
             string zipInput = txtZip.Text;
-            testing.getWeather(zipInput);
-            if (testing.validate == true)
+            //testing.getWeather(zipInput);
+            pullData.getData(zipInput);
+            if (pullData.validation == true)
             {
+                testing.getWeather();
                 DetermineColor();
                 txtName.Visibility = Visibility.Visible;
                 txtDegree.Visibility = Visibility.Visible;

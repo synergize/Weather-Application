@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherApplication
 {
-    class GetDarkSky
+    public class GetDarkSky
     {
         public class Currently
         {

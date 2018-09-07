@@ -76,14 +76,23 @@ namespace WeatherApplication
             dt.Columns.Add(colLat);
             dt.Columns.Add(colLong);
 
-            DataRow windSpeed;
-            windSpeed = dt.NewRow();
-            windSpeed[colDay] = "Test";
-            windSpeed[colLoc] = "Testing";
+                DataRow AddRow;
+            GetForecast output = new GetForecast();
+            for (int i = 0; i < 6; i++)
+            {                
+                AddRow = dt.NewRow();
+                AddRow[colDay] = output.foreDay[i];
+                AddRow[colLoc] = output.foreLoc[i];
+                dt.Rows.Add(AddRow);
+
+            }
+
+            //DataRow windSpeed;
+            //windSpeed = dt.NewRow();
+            //windSpeed[colDay] = "Test";
+            //windSpeed[colLoc] = "Testing";
             //DataRow firstRow = dt.NewRow();
             //firstRow[0] = "Testing";
-
-            dt.Rows.Add(windSpeed);
             dtTest.ItemsSource = dt.DefaultView;
 
             
