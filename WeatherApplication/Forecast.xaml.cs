@@ -92,7 +92,7 @@ namespace WeatherApplication
             {
                 tableDataInput = dt.NewRow();
                 tableDataInput[colDay] = formatTime.AddSeconds(darkResult.daily.data[i].time).DayOfWeek;
-                tableDataInput[colLoc] = $"{darkResult.daily.data[i].windSpeed} mph";
+                tableDataInput[colLoc] = $"X";
                 tableDataInput[colTempHigh] = $"{Convert.ToInt32(darkResult.daily.data[i].temperatureHigh)}°F";
                 tableDataInput[colTempLow] = $"{Convert.ToInt32(darkResult.daily.data[i].temperatureLow)}°F";
                 tableDataInput[colWeatherType] = darkResult.daily.data[i].summary;
@@ -100,8 +100,8 @@ namespace WeatherApplication
                 tableDataInput[colWindGust] = $"{darkResult.daily.data[i].windGust} mph";
                 tableDataInput[colClouds] = $"{darkResult.daily.data[i].cloudCover * 100}%";
                 tableDataInput[colPressure] = $"{darkResult.daily.data[i].pressure}";
-                tableDataInput[colSunrise] = $"{formatTime.AddSeconds(darkResult.daily.data[i].sunriseTime).ToLocalTime().ToString("hh:mm:ss tt")}";
-                tableDataInput[colSunset] = $"{formatTime.AddSeconds(darkResult.daily.data[i].sunsetTime).ToLocalTime().ToString("hh:mm:ss tt")}";
+                tableDataInput[colSunrise] = $"{formatTime.AddSeconds(darkResult.daily.data[i].sunriseTime).ToString("hh:mm:ss tt")}";
+                tableDataInput[colSunset] = $"{formatTime.AddSeconds(darkResult.daily.data[i].sunsetTime).ToString("hh:mm:ss tt")}";
                 tableDataInput[colHumidity] = $"{darkResult.daily.data[i].humidity * 100}%";
                 tableDataInput[colUVIndex] = darkResult.daily.data[i].uvIndex;
 
