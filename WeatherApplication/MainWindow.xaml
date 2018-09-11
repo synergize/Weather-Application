@@ -29,7 +29,7 @@
                 </Label.Effect>
             </Label>
         </StackPanel>
-        <TextBox x:Name="txtZip" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" AcceptsReturn="False" AcceptsTab="False" Margin="161,172,161,0" Text="Test">
+        <TextBox x:Name="txtZip" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" AcceptsReturn="False" AcceptsTab="False" Margin="161,172,161,0" Text="29579">
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
@@ -59,19 +59,71 @@
             </Menu>
         </DockPanel>
         <Grid Margin="1,228,0,0">
-            <Label Content="Wind Speed:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="18" Margin="20,15,0,0"/>
-            <Label Content="Cloud Coverage:" HorizontalAlignment="Left" Margin="20,55,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18"/>
-            <Label Content="Pressure:" HorizontalAlignment="Left" Margin="20,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18"/>
-            <Label Content="Humidity:" HorizontalAlignment="Left" Margin="243,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18"/>
-            <Label Content="Sunrise:" HorizontalAlignment="Left" Margin="243,15,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" RenderTransformOrigin="0.176,0.5"/>
-            <Label Content="Sunset:" HorizontalAlignment="Left" Margin="243,55,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18"/>
-            <Label x:Name="txtWind" Content="Label" HorizontalAlignment="Left" Margin="130,15,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible"/>
-            <Label x:Name="txtClouds" Content="Label" HorizontalAlignment="Left" Margin="161,55,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" RenderTransformOrigin="0,0.559"/>
-            <Label x:Name="txtPressure" Content="Label" HorizontalAlignment="Left" Margin="106,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible"/>
-            <Label x:Name="txtHumidity" Content="Label" HorizontalAlignment="Left" Margin="335,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible"/>
-            <Label x:Name="txtSunrise" Content="Label" HorizontalAlignment="Left" Margin="335,15,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible"/>
-            <Label x:Name="txtCoordinates" Content="Label" HorizontalAlignment="Left" Margin="106,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible"/>
-            <Label x:Name="txtSunset" Content="Label" HorizontalAlignment="Left" Margin="335,63,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White"/>
+            <Label Content="Wind Speed:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="18" Margin="20,15,0,0">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label Content="Cloud Coverage:" HorizontalAlignment="Left" Margin="20,55,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label Content="Pressure:" HorizontalAlignment="Left" Margin="20,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label Content="Humidity:" HorizontalAlignment="Left" Margin="243,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label Content="Sunrise:" HorizontalAlignment="Left" Margin="243,15,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" RenderTransformOrigin="0.176,0.5">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label Content="Sunset:" HorizontalAlignment="Left" Margin="243,55,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtWind" Content="Label" HorizontalAlignment="Left" Margin="130,15,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtClouds" Content="Label" HorizontalAlignment="Left" Margin="161,55,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" RenderTransformOrigin="0,0.559">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtPressure" Content="Label" HorizontalAlignment="Left" Margin="106,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtHumidity" Content="Label" HorizontalAlignment="Left" Margin="335,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtSunrise" Content="Label" HorizontalAlignment="Left" Margin="335,15,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtCoordinates" Content="Label" HorizontalAlignment="Left" Margin="106,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="txtSunset" Content="Label" HorizontalAlignment="Left" Margin="335,63,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
 
 
 

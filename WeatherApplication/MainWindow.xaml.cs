@@ -16,12 +16,15 @@ using System.Windows.Shapes;
 using WpfAnimatedGif;
 using System.IO;
 using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace WeatherApplication
 {
     public partial class MainWindow : Window
     {
-        GetAPI testing = new GetAPI();
+        GetData acquireData = new GetData();
+        string apiData = null;
         public MainWindow()
         {
 
@@ -33,10 +36,11 @@ namespace WeatherApplication
         {
             
             string zipInput = txtZip.Text;
-            testing.getWeather(zipInput);
-            if (testing.validate == true)
+            apiData = acquireData.getWeather(zipInput);
+            if (apiData != null)
             {
-                DetermineColor();
+                var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(apiData);
+                DetermineColor(Convert.ToInt32(darkResult.currently.temperature));
                 txtName.Visibility = Visibility.Visible;
                 txtDegree.Visibility = Visibility.Visible;
                 txtWeather.Visibility = Visibility.Visible;
@@ -47,16 +51,16 @@ namespace WeatherApplication
                 txtSunrise.Visibility = Visibility.Visible;
                 txtSunset.Visibility = Visibility.Visible;
                 txtHumidity.Visibility = Visibility.Visible;
-                txtDegree.Content = $"{ testing.temperatureOut}°";
-                txtWeather.Content = $"{testing.weatherOut.First().ToString().ToUpper()}{testing.weatherOut.Substring(1)}";
-                txtName.Content = testing.nameOut;
-                txtWind.Content = testing.windOut;
-                txtClouds.Content = testing.cloudsOut;
-                txtPressure.Content = testing.pressureOut;
-                txtCoordinates.Content = testing.coordsOut;
-                txtSunrise.Content = testing.sunriseOut;
-                txtSunset.Content = testing.sunsetOut;
-                txtHumidity.Content = testing.humidOut;
+                txtDegree.Content = Convert.ToInt32(darkResult.currently.temperature).ToString();
+                txtWeather.Content = $"{darkResult.currently.summary.First().ToString().ToUpper()}{darkResult.currently.summary.Substring(1)}";
+                txtName.Content = darkResult.timezone;
+                txtWind.Content = $"{darkResult.currently.windSpeed} mph";
+                txtClouds.Content = $"{darkResult.currently.cloudCover * 100}%";
+                txtPressure.Content = $"{Convert.ToInt32(darkResult.currently.pressure)} hpa";
+                txtCoordinates.Content = $"Latitude: {darkResult.latitude}      Longitude: {darkResult.longitude}";
+                txtSunrise.Content = $"{DateTime(darkResult.daily.data[0].sunriseTime.ToString())}"; //sunrise time output;
+                txtSunset.Content = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
+                txtHumidity.Content = $"{darkResult.currently.humidity * 100}%";
             }
 
         }
@@ -64,9 +68,9 @@ namespace WeatherApplication
         {
             Application.Current.Shutdown();
         } //Ensures safe close when pressing the "X". 
-        private void DetermineColor()
+        private void DetermineColor(int input)
         {
-            int colorTest = Convert.ToInt32(testing.temperatureOut);
+            int colorTest = input;
             Color ColorType = Color.FromArgb(0, 0, 0, 0);
             if (colorTest <= 0)
             {
@@ -154,11 +158,11 @@ namespace WeatherApplication
         }//Visual modifications for labels when loading the program.
         private void DetermineBackground()
         {
-            if (testing.weatherOut.Contains("rain"))
-            {
-                this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
+            //if (.weatherOut.Contains("rain"))
+            //{
+            //    this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
 
-            }
+            //}
         } //Currently unused and inprogress.
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -171,9 +175,16 @@ namespace WeatherApplication
         {
 
             //Forecast Menu Button
-            Forecast forecastWindow = new Forecast();
-            forecastWindow.Show();
-            //this.Close();
+            if (apiData != null)
+            {
+                Forecast forecastWindow = new Forecast(apiData);
+                forecastWindow.Show();
+                //this.Close();
+            }
+            else
+            {
+                MessageBox.Show($"Please enter a Zip Code Below and Press \"Enter\"");
+            }
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
@@ -181,5 +192,12 @@ namespace WeatherApplication
             //Exit Application Menu Button
             Application.Current.Shutdown();
         }
+        public string DateTime(string input)
+        {
+            DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
+            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
+        }//Converted time input and outputs to readable format.
     }
 }

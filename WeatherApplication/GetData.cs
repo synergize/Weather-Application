@@ -12,28 +12,16 @@ using Newtonsoft.Json.Converters;
 
 namespace WeatherApplication
 {
-    class GetAPI
+    class GetData
     {
         string zipInput = "";
         //Unique API Key provided from OpenWeatherMap
         string apiKey = System.Environment.GetEnvironmentVariable("WEATHER_KEY");
         string darkAPI = System.Environment.GetEnvironmentVariable("DARK_KEY");
         string url = "";
-
         public bool validate { get; set; }
-        public string temperatureOut { get; set; }
-        public string weatherOut { get; set; }
-        public string nameOut { get; set; }
-        public string windOut { get; set; }
-        public string cloudsOut { get; set; }
-        public string pressureOut { get; set; }
-        public string humidOut { get; set; }
-        public string sunriseOut { get; set; }
-        public string sunsetOut { get; set; }
-        public string coordsOut { get; set; }
-        public Image pictureTest { get; set; }
 
-        public void getWeather(string zip)
+        public string getWeather(string zip)
         {            
                 using (WebClient web = new WebClient())
             {                
@@ -46,34 +34,18 @@ namespace WeatherApplication
 
                 if (validate == true)
                 {
-                    //Acquires the data from the URL above and stores it into json variable. 
-                    
+                    //Acquires the data from the URL above and stores it into json variable.                     
                     var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(openWeather);
                     GetWeather.RootObject openOutput = result;
                     url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");
                     var darkWeather = web.DownloadString(url);
-                    var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(darkWeather);
+                    return darkWeather;
 
-                    temperatureOut = Convert.ToInt32(darkResult.currently.temperature).ToString(); 
-                    weatherOut = darkResult.currently.summary;
-                    nameOut = darkResult.timezone;
-                    windOut = $"{darkResult.currently.windSpeed} mph";
-                    cloudsOut = $"{darkResult.currently.cloudCover * 100}%";
-                    pressureOut = $"{Convert.ToInt32(darkResult.currently.pressure)} hpa";
-                    humidOut = $"{darkResult.currently.humidity * 100}%";
-                    sunriseOut = $"{DateTime(darkResult.daily.data[0].sunriseTime.ToString())}"; //sunrise time output
-                    sunsetOut = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
-                    coordsOut = $"Latitude: {openOutput.Coord.Lat}      Longitude: {openOutput.Coord.Lon}";
-
-                    for (int i = 0; i < darkResult.daily.data.Count; i++)
-                    {
-                        MessageBox.Show(DateTime(darkResult.daily.data[i].time.ToString()));
-                    }
 
                 }
                 else
                 {
-                    
+                    return null;
                 }
             }
         }
@@ -83,7 +55,6 @@ namespace WeatherApplication
             {
                 using (WebClient web = new WebClient())
                 {
-                    //openUrl = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
                     json = web.DownloadString(url);
                     validate = true;
 
@@ -106,8 +77,8 @@ namespace WeatherApplication
         {
             DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
-            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
+            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
+            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
         }//Converted time input and outputs to readable format.
     }
 }

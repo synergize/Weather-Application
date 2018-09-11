@@ -77,11 +77,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConvertDegrees.cs" />
-    <Compile Include="DataOutput.cs" />
     <Compile Include="Forecast.xaml.cs">
       <DependentUpon>Forecast.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GetAPI.cs" />
+    <Compile Include="GetData.cs" />
     <Compile Include="GetDarkSky.cs" />
     <Compile Include="GetWeather.cs" />
     <Compile Include="MainWindow.xaml.cs">
