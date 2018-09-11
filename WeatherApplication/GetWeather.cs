@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherApplication
 {
-    class GetWeather
+    public class GetWeather
     {
         // Class that is used to pull data from the OpenWeather API
         // and sets the data into variables. These must be setup 
