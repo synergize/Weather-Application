@@ -16,33 +16,26 @@ using System.Windows.Shapes;
 using WpfAnimatedGif;
 using System.IO;
 using System.Reflection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace WeatherApplication
 {
     public partial class MainWindow : Window
     {
         GetAPI testing = new GetAPI();
-        StoreAPIData pullData = new StoreAPIData();
         public MainWindow()
         {
 
             InitializeComponent();
-            
 
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             
-            
             string zipInput = txtZip.Text;
-            //testing.getWeather(zipInput);
-            pullData.getData(zipInput);
-            if (pullData.validation == true)
+            testing.getWeather(zipInput);
+            if (testing.validate == true)
             {
-                testing.getWeather();
                 DetermineColor();
                 txtName.Visibility = Visibility.Visible;
                 txtDegree.Visibility = Visibility.Visible;
