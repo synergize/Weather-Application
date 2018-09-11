@@ -17,6 +17,7 @@ namespace WeatherApplication
         //Unique API Key provided from OpenWeatherMap
         string apiKey = System.Environment.GetEnvironmentVariable("WEATHER_KEY");
         string darkAPI = System.Environment.GetEnvironmentVariable("DARK_KEY");
+        bool verify = false;
         string url = "";
 
        // public bool validate { get; set; }
@@ -40,8 +41,8 @@ namespace WeatherApplication
             //url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
 
             //var openWeather = Validation(url);
-            StoreAPIData darkAPIData = new StoreAPIData();
-            GetWeather openAPIData = new GetWeather();
+            
+            StoreAPIData darkAPIData = new StoreAPIData();           
                 if (darkAPIData.validation == true)                
                 {
                     //Acquires the data from the URL above and stores it into json variable. 

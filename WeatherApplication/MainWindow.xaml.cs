@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using WpfAnimatedGif;
 using System.IO;
 using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace WeatherApplication
 {
@@ -27,11 +29,13 @@ namespace WeatherApplication
         {
 
             InitializeComponent();
+            
 
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            
             
             string zipInput = txtZip.Text;
             //testing.getWeather(zipInput);

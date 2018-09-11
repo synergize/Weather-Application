@@ -33,8 +33,7 @@ namespace WeatherApplication
                 validate = value;
             }
         }
-        public string _darkWeather
-        {
+        public string _darkWeather {
             get
             {
                 return darkWeather;
@@ -44,8 +43,8 @@ namespace WeatherApplication
                 darkWeather = value;
             }
         }
-        public string _openWeather
-        {
+        
+        public string _openWeather {
             get
             {
                 return openWeather;
@@ -72,13 +71,11 @@ namespace WeatherApplication
                 if (validate == true)
                 {
                     //Acquires the data from the URL above and stores it into json variable. 
-
                     var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(openWeather);
                     GetWeather.RootObject openOutput = result;
                     url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");
                     darkWeather = web.DownloadString(url);
-
-                    //var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(darkWeather);
+                    //_darkWeather = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(darkWeather);
 
                 }
             }
