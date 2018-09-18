@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
 namespace WeatherApplication
 {
@@ -19,6 +20,8 @@ namespace WeatherApplication
         string apiKey = System.Environment.GetEnvironmentVariable("WEATHER_KEY");
         string darkAPI = System.Environment.GetEnvironmentVariable("DARK_KEY");
         string url = "";
+        string openWeather = null;
+        string darkWeather = null;
         public bool validate { get; set; }
 
         public string getWeather(string zip)
@@ -29,7 +32,7 @@ namespace WeatherApplication
                 //Combines the zip code entered, the API key and a template for looking up via Zip code on the API. 
                 url = string.Format($"http://api.openweathermap.org/data/2.5/weather?zip={zipInput},us&appid={apiKey}");
 
-                var openWeather = Validation(url);
+                openWeather = Validation(url);
                 
 
                 if (validate == true)
@@ -37,9 +40,13 @@ namespace WeatherApplication
                     //Acquires the data from the URL above and stores it into json variable.                     
                     var result = JsonConvert.DeserializeObject<GetWeather.RootObject>(openWeather);
                     GetWeather.RootObject openOutput = result;
-                    url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");
-                    var darkWeather = web.DownloadString(url);
-                    return darkWeather;
+                    url = string.Format($"https://api.darksky.net/forecast/{darkAPI}/{openOutput.Coord.Lat},{openOutput.Coord.Lon}");                    
+                    darkWeather = web.DownloadString(url);
+                    //Using JObject class to append JSON data and inject the city name into DarkSky API Output.
+                    JObject testObject = JObject.Parse(darkWeather);
+                    JObject cityName = (JObject)testObject["currently"];
+                    cityName.Property("time").AddAfterSelf(new JProperty("cityname", CityName(openOutput)));
+                    return darkWeather = testObject.ToString();
 
 
                 }
@@ -75,10 +82,14 @@ namespace WeatherApplication
 
         public string DateTime(string input)
         {
-            DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
 
-            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
+            return Time.AddSeconds(Convert.ToDouble(input)).ToString("hh:mm:ss tt");
             //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
         }//Converted time input and outputs to readable format.
+        public string CityName(GetWeather.RootObject input)
+        {
+            return input.Name;
+        }//Return City Name
     }
 }

@@ -11,6 +11,7 @@ namespace WeatherApplication
         public class Currently
         {
             public int time { get; set; }
+            public string cityname {get; set;} //Not from darksky api. Added in manually.
             public string summary { get; set; }
             public string icon { get; set; }
             public double nearestStormDistance { get; set; }
@@ -123,6 +124,16 @@ namespace WeatherApplication
             public string icon { get; set; }
             public List<Datum3> data { get; set; }
         }
+        public class Alert
+        {
+            public string title { get; set; }
+            public List<string> regions { get; set; }
+            public string severity { get; set; }
+            public int time { get; set; }
+            public int expires { get; set; }
+            public string description { get; set; }
+            public string uri { get; set; }
+        }
 
         public class Flags
         {
@@ -140,6 +151,7 @@ namespace WeatherApplication
             public Minutely minutely { get; set; }
             public Hourly hourly { get; set; }
             public Daily daily { get; set; }
+            public List<Alert> alerts { get; set; }
             public Flags flags { get; set; }
             public int offset { get; set; }
         }

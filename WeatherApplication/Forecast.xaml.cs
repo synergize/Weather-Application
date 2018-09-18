@@ -69,6 +69,7 @@ namespace WeatherApplication
             DataColumn colSunset = new DataColumn("Sunset", typeof(string));
             DataColumn colHumidity = new DataColumn("Humidity", typeof(string));
             DataColumn colUVIndex = new DataColumn("UV Index", typeof(string));
+
             
             //Data Columns
             dt.Columns.Add(colDay);
@@ -92,7 +93,7 @@ namespace WeatherApplication
             {
                 tableDataInput = dt.NewRow();
                 tableDataInput[colDay] = formatTime.AddSeconds(darkResult.daily.data[i].time).DayOfWeek;
-                tableDataInput[colLoc] = $"X";
+                tableDataInput[colLoc] = $"{darkResult.currently.cityname}";
                 tableDataInput[colTempHigh] = $"{Convert.ToInt32(darkResult.daily.data[i].temperatureHigh)}°F";
                 tableDataInput[colTempLow] = $"{Convert.ToInt32(darkResult.daily.data[i].temperatureLow)}°F";
                 tableDataInput[colWeatherType] = darkResult.daily.data[i].summary;
@@ -107,6 +108,7 @@ namespace WeatherApplication
 
                 dt.Rows.Add(tableDataInput);
             }
+
             dtTest.ItemsSource = dt.DefaultView;
 
             

@@ -18,13 +18,14 @@ using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
+using System.Windows.Threading;
 namespace WeatherApplication
 {
     public partial class MainWindow : Window
     {
         GetData acquireData = new GetData();
         string apiData = null;
+        List<string> alertsList = new List<string>();
         public MainWindow()
         {
 
@@ -34,7 +35,7 @@ namespace WeatherApplication
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            
+
             string zipInput = txtZip.Text;
             apiData = acquireData.getWeather(zipInput);
             if (apiData != null)
@@ -53,7 +54,7 @@ namespace WeatherApplication
                 txtHumidity.Visibility = Visibility.Visible;
                 txtDegree.Content = Convert.ToInt32(darkResult.currently.temperature).ToString();
                 txtWeather.Content = $"{darkResult.currently.summary.First().ToString().ToUpper()}{darkResult.currently.summary.Substring(1)}";
-                txtName.Content = darkResult.timezone;
+                txtName.Content = darkResult.currently.cityname;
                 txtWind.Content = $"{darkResult.currently.windSpeed} mph";
                 txtClouds.Content = $"{darkResult.currently.cloudCover * 100}%";
                 txtPressure.Content = $"{Convert.ToInt32(darkResult.currently.pressure)} hpa";
@@ -61,6 +62,12 @@ namespace WeatherApplication
                 txtSunrise.Content = $"{DateTime(darkResult.daily.data[0].sunriseTime.ToString())}"; //sunrise time output;
                 txtSunset.Content = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
                 txtHumidity.Content = $"{darkResult.currently.humidity * 100}%";
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Tick += new EventHandler(dispatcherTimer_Tick);
+                timer.Interval = new TimeSpan(0, 0, 1);
+                timer.Start();
+                FormatAlert();
+                
             }
 
         }
@@ -151,10 +158,7 @@ namespace WeatherApplication
 
         private void txtDegree_Loaded(object sender, RoutedEventArgs e)
         {
-            txtDegree.Content = "Enter a zip code to check the weather!";
-            txtDegree.Visibility = Visibility.Visible;
-            txtDegree.Foreground = new SolidColorBrush(Color.FromArgb(255, 31, 181, 238));
-            this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
+
         }//Visual modifications for labels when loading the program.
         private void DetermineBackground()
         {
@@ -179,7 +183,6 @@ namespace WeatherApplication
             {
                 Forecast forecastWindow = new Forecast(apiData);
                 forecastWindow.Show();
-                //this.Close();
             }
             else
             {
@@ -199,5 +202,47 @@ namespace WeatherApplication
             return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
             //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
         }//Converted time input and outputs to readable format.
+
+        private void weatherBackground_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtDegree.Content = "Enter a zip code to check the weather!";
+            txtDegree.Visibility = Visibility.Visible;
+            txtDegree.Foreground = new SolidColorBrush(Color.FromArgb(255, 31, 181, 238));
+            this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
+
+        }
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            
+            Thickness margin = txtMarquee.Margin;
+            margin.Left += 50;
+            txtMarquee.Margin = margin;
+            if (margin.Left >= this.Width)
+            {
+                
+                margin.Left = margin.Bottom * -1;
+                txtMarquee.Margin = margin;
+            }
+        }
+        private void FormatAlert()
+        {
+            var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(apiData);
+            string region = null;
+            for (int i = 0; i < darkResult.alerts.Count; i++)
+                for (int j = 0; j < darkResult.alerts[i].regions.Count; j++)
+            {
+                    if (darkResult.alerts[i].regions.Count > 1)
+                    {
+                        region += $"{darkResult.alerts[i].regions[j]}, ";
+                    }else
+                    {
+                        region = darkResult.alerts[i].regions[j];
+                    }                    
+                    alertsList.Add($"Time: {DateTime(darkResult.alerts[i].time.ToString())} {darkResult.alerts[i].title} in {region} Expiring at {DateTime(darkResult.alerts[i].expires.ToString())}");
+                    region = null;
+            }
+            int x = 0;
+
+        }
     }
 }
