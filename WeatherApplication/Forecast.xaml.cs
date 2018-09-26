@@ -60,14 +60,14 @@ namespace WeatherApplication
             DataColumn colLoc = new DataColumn("Location", typeof(string));
             DataColumn colTempHigh = new DataColumn("High", typeof(string));
             DataColumn colTempLow = new DataColumn("Low", typeof(string));
+            DataColumn colRain = new DataColumn("Chance of Rain", typeof(string));
             DataColumn colWeatherType = new DataColumn("Weather Type", typeof(string));
             DataColumn colSpeed = new DataColumn("Wind Speed", typeof(string));
             DataColumn colWindGust = new DataColumn("Wind Gust", typeof(string));
             DataColumn colClouds = new DataColumn("Cloud Coverage", typeof(string));
             DataColumn colPressure = new DataColumn("Pressure", typeof(string));
             DataColumn colSunrise = new DataColumn("Sunrise", typeof(string));
-            DataColumn colSunset = new DataColumn("Sunset", typeof(string));
-            DataColumn colHumidity = new DataColumn("Humidity", typeof(string));
+            DataColumn colSunset = new DataColumn("Sunset", typeof(string));            
             DataColumn colUVIndex = new DataColumn("UV Index", typeof(string));
 
             
@@ -76,6 +76,7 @@ namespace WeatherApplication
             dt.Columns.Add(colLoc);
             dt.Columns.Add(colTempHigh);
             dt.Columns.Add(colTempLow);
+            dt.Columns.Add(colRain);
             dt.Columns.Add(colWeatherType);
             dt.Columns.Add(colSpeed);
             dt.Columns.Add(colWindGust);
@@ -83,7 +84,6 @@ namespace WeatherApplication
             dt.Columns.Add(colPressure);
             dt.Columns.Add(colSunrise);
             dt.Columns.Add(colSunset);
-            dt.Columns.Add(colHumidity);
             dt.Columns.Add(colUVIndex);
 
             DataRow tableDataInput;
@@ -96,6 +96,7 @@ namespace WeatherApplication
                 tableDataInput[colLoc] = $"{darkResult.currently.cityname}";
                 tableDataInput[colTempHigh] = $"{Convert.ToInt32(darkResult.daily.data[i].temperatureHigh)}°F";
                 tableDataInput[colTempLow] = $"{Convert.ToInt32(darkResult.daily.data[i].temperatureLow)}°F";
+                tableDataInput[colRain] = $"{darkResult.daily.data[i].precipProbability * 100}%";
                 tableDataInput[colWeatherType] = darkResult.daily.data[i].summary;
                 tableDataInput[colSpeed] = $"{darkResult.daily.data[i].windSpeed} mph";
                 tableDataInput[colWindGust] = $"{darkResult.daily.data[i].windGust} mph";
@@ -103,7 +104,6 @@ namespace WeatherApplication
                 tableDataInput[colPressure] = $"{darkResult.daily.data[i].pressure}";
                 tableDataInput[colSunrise] = $"{formatTime.AddSeconds(darkResult.daily.data[i].sunriseTime).ToString("hh:mm:ss tt")}";
                 tableDataInput[colSunset] = $"{formatTime.AddSeconds(darkResult.daily.data[i].sunsetTime).ToString("hh:mm:ss tt")}";
-                tableDataInput[colHumidity] = $"{darkResult.daily.data[i].humidity * 100}%";
                 tableDataInput[colUVIndex] = darkResult.daily.data[i].uvIndex;
 
                 dt.Rows.Add(tableDataInput);

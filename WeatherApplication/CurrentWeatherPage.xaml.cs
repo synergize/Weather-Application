@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,32 +13,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfAnimatedGif;
-using System.IO;
-using System.Reflection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Windows.Threading;
-using System.Windows.Media.Animation;
 
 namespace WeatherApplication
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for CurrentWeatherPage.xaml
+    /// </summary>
+    public partial class CurrentWeatherPage : Page
     {
         GetData acquireData = new GetData();
         string apiData = null;
-        public MainWindow()
+        public CurrentWeatherPage(string data)
         {
-
+            apiData = data;
             InitializeComponent();
-
         }
 
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-
-            string zipInput = txtZip.Text;
-            apiData = acquireData.getWeather(zipInput);
+            //apiData = acquireData.getWeather(zipInput.ToString());
             if (apiData != null)
             {
                 var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(apiData);
@@ -63,7 +56,7 @@ namespace WeatherApplication
                 txtSunrise.Content = $"{DateTime(darkResult.daily.data[0].sunriseTime.ToString())}"; //sunrise time output;
                 txtSunset.Content = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
                 txtRain.Content = $"{darkResult.currently.precipProbability * 100}%";
-               // txtMarquee.Content = darkResult.alerts[0].description;
+                // txtMarquee.Content = darkResult.alerts[0].description;
                 //DispatcherTimer timer = new DispatcherTimer();
                 //timer.Tick += new EventHandler(dispatcherTimer_Tick);
                 //timer.Interval = new TimeSpan(0, 0, 0, 0, 30);
@@ -76,16 +69,21 @@ namespace WeatherApplication
                 //doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
                 //doubleAnimation.Duration = 
                 //txtMarquee.BeginAnimation(Canvas.LeftProperty, doubleAnimation);
-
-                
-
             }
+        }
+
+        private void txtDegree_Loaded(object sender, RoutedEventArgs e)
+        {
 
         }
-        protected override void OnClosing(CancelEventArgs e)
+        public string DateTime(string input)
         {
-            Application.Current.Shutdown();
-        } //Ensures safe close when pressing the "X". 
+            DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
+            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
+        }//Converted time input and outputs to readable format.
+
         private void DetermineColor(int input)
         {
             int colorTest = input;
@@ -166,99 +164,5 @@ namespace WeatherApplication
 
 
         }//Changes color of the temperature text based on degrees. 
-
-        private void txtDegree_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }//Visual modifications for labels when loading the program.
-        private void DetermineBackground()
-        {
-            //if (.weatherOut.Contains("rain"))
-            //{
-            //    this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
-
-            //}
-        } //Currently unused and inprogress.
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            //About Menu Button
-            MessageBox.Show("Greetings! This is my first application making use of an API called OpenWeatherMap. It can be located here, https://openweathermap.org/.", "About This Weather Application");
-        }
-
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
-        {
-
-            //Forecast Menu Button
-            if (apiData != null)
-            {
-                Forecast forecastWindow = new Forecast(apiData);
-                forecastWindow.Show();
-            }
-            else
-            {
-                MessageBox.Show($"Please enter a Zip Code Below and Press \"Enter\"");
-            }
-        }
-
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
-        {
-            //Exit Application Menu Button
-            Application.Current.Shutdown();
-        }
-        public string DateTime(string input)
-        {
-            DateTime Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-            return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("hh:mm:ss tt");
-            //return Time.AddSeconds(Convert.ToDouble(input)).ToLocalTime().ToString("yyyyMMddTHH:mm:ssZ");
-        }//Converted time input and outputs to readable format.
-
-        private void weatherBackground_Loaded(object sender, RoutedEventArgs e)
-        {
-            txtDegree.Content = "Enter a zip code to check the weather!";
-            txtDegree.Visibility = Visibility.Visible;
-            txtDegree.Foreground = new SolidColorBrush(Color.FromArgb(255, 31, 181, 238));
-            this.Background = new ImageBrush(new BitmapImage(new Uri(@"../../images/lightrain.gif", UriKind.Relative)));
-
-        }
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            
-            Thickness margin = txtMarquee.Margin;
-            margin.Right += 5;
-            txtMarquee.Margin = margin;
-            if (margin.Right >= this.Width)
-            {
-                
-                margin.Right = margin.Bottom * -1;
-                txtMarquee.Margin = margin;
-            }
-        }
-        private List<string> FormatAlert()
-        {
-            var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(apiData);
-            List<string> alertsList = new List<string>();
-            string region = null;
-            for (int i = 0; i < darkResult.alerts.Count; i++)                
-            {
-                for (int j = 0; j < darkResult.alerts[i].regions.Count; j++)
-                {
-                    if (darkResult.alerts[i].regions.Count > 1)
-                    {
-                        region += $"{darkResult.alerts[i].regions[j]}, ";
-                    }
-                    else
-                    {
-                        region = darkResult.alerts[i].regions[j];
-                    }
-                }
-                    alertsList.Add($"Time: {DateTime(darkResult.alerts[i].time.ToString())} {darkResult.alerts[i].title} in {region} Expiring at {DateTime(darkResult.alerts[i].expires.ToString())}");
-                    region = null;
-            }
-            return alertsList;
-
-        }
     }
-    
 }

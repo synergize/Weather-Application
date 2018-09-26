@@ -83,6 +83,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RefactorMainPage.xaml.cs">
+      <DependentUpon>RefactorMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WeeklyForecastPage.xaml.cs">
+      <DependentUpon>WeeklyForecastPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CurrentWeatherPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forecast.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +106,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConvertDegrees.cs" />
+    <Compile Include="CurrentWeatherPage.xaml.cs">
+      <DependentUpon>CurrentWeatherPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forecast.xaml.cs">
       <DependentUpon>Forecast.xaml</DependentUpon>
     </Compile>
@@ -106,6 +119,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RefactorMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WeeklyForecastPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

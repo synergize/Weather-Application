@@ -74,7 +74,7 @@
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label Content="Humidity:" HorizontalAlignment="Left" Margin="243,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18">
+            <Label Content="Chance of Rain:" HorizontalAlignment="Left" Margin="243,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
@@ -104,7 +104,7 @@
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtHumidity" Content="Label" HorizontalAlignment="Left" Margin="335,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible">
+            <Label x:Name="txtRain" Content="Label" HorizontalAlignment="Left" Margin="381,105,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
@@ -124,16 +124,13 @@
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtMarquee" Content="Label" HorizontalAlignment="Left" Margin="0,203,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red" Width="64">
-                <Label.Effect>
-                    <DropShadowEffect/>
-                </Label.Effect>
-            </Label>
-
-
-
-        </Grid>
-
-
-    </Grid>
+            <Canvas x:Name="canMain" Margin="0,204,0,0">
+                <Label x:Name="txtMarquee" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Foreground="Red" Width="Auto" Canvas.Left="10" Canvas.Top="10">
+                    <Label.Effect>
+                        <DropShadowEffect/>
+                    </Label.Effect>
+                </Label>
+            </Canvas>
+        </Grid>        
+    </Grid>    
 </Window>
