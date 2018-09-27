@@ -31,11 +31,20 @@ namespace WeatherApplication
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //apiData = acquireData.getWeather(zipInput.ToString());
+           // string iconURL = "@\"../../icons/dunno.png\"";
+           // MessageBox.Show(iconURL);
+           // BitmapImage image = new BitmapImage();
+           // image.UriSource = new Uri(iconURL);
+           // image.BeginInit();
+           // image.DecodePixelWidth = 20;
+           // image.EndInit();
+           //imgIcon.Source = image;
+            
             if (apiData != null)
             {
                 var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(apiData);
                 DetermineColor(Convert.ToInt32(darkResult.currently.temperature));
+                var test = darkResult.currently.icon;
                 txtName.Visibility = Visibility.Visible;
                 txtDegree.Visibility = Visibility.Visible;
                 txtWeather.Visibility = Visibility.Visible;
@@ -56,6 +65,9 @@ namespace WeatherApplication
                 txtSunrise.Content = $"{DateTime(darkResult.daily.data[0].sunriseTime.ToString())}"; //sunrise time output;
                 txtSunset.Content = $"{DateTime(darkResult.daily.data[0].sunsetTime.ToString())}"; //sunet time output
                 txtRain.Content = $"{darkResult.currently.precipProbability * 100}%";
+              //iconURL = $"@\"../../images/{darkResult.currently.icon}.png"";                
+                //imgIcon.Source = image;
+
                 // txtMarquee.Content = darkResult.alerts[0].description;
                 //DispatcherTimer timer = new DispatcherTimer();
                 //timer.Tick += new EventHandler(dispatcherTimer_Tick);
@@ -165,4 +177,5 @@ namespace WeatherApplication
 
         }//Changes color of the temperature text based on degrees. 
     }
+
 }

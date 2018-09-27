@@ -170,5 +170,17 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="clear-day.png" />
+    <EmbeddedResource Include="clear-night.png" />
+    <EmbeddedResource Include="cloudy.png" />
+    <EmbeddedResource Include="dunno.png" />
+    <EmbeddedResource Include="fog.png" />
+    <EmbeddedResource Include="partly-cloudy-day.png" />
+    <EmbeddedResource Include="partly-cloudy-night.png" />
+    <EmbeddedResource Include="rain.png" />
+    <EmbeddedResource Include="sleet.png" />
+    <EmbeddedResource Include="snow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

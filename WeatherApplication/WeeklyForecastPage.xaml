@@ -5,12 +5,18 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WeatherApplication"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1000"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="WeeklyForecastPage" Loaded="forecastPage_Loaded">
 
     <Grid>
-        <DataGrid x:Name="dtTest" HorizontalAlignment="Left" Height="325" Margin="0,19,-1116,0" VerticalAlignment="Top" Width="auto" Loaded="dtTest_Loaded" BorderBrush="{x:Null}" Grid.ColumnSpan="2" IsReadOnly="True" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="#FF92EA29" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <DataGrid x:Name="dtTest" HorizontalAlignment="Left" Height="auto" Margin="0,19,-1116,0" VerticalAlignment="Top" Width="800" Loaded="dtTest_Loaded" BorderBrush="{x:Null}" Grid.ColumnSpan="2" IsReadOnly="True" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
         </DataGrid>
-        
+
     </Grid>
 </Page>
