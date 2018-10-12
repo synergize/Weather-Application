@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WeatherApplication
 {
@@ -20,9 +11,9 @@ namespace WeatherApplication
     /// </summary>
     public partial class RefactorMainPage : Window
     {
-        int zipInput;
-        string apiData = null;
-        bool isNumber = false;
+        private int _zipInput;
+        private string _apiData = null;
+        private bool _isNumber = false;
         public RefactorMainPage()
         {
             InitializeComponent();
@@ -31,15 +22,15 @@ namespace WeatherApplication
         private void btnCurrent_Click(object sender, RoutedEventArgs e)
         {
             txtDescription.Visibility = Visibility.Hidden;
-            isNumber = int.TryParse(txtZip.Text, out zipInput);
-            if (isNumber == true)
-            Main.Content = new CurrentWeatherPage(apiData);
+            _isNumber = int.TryParse(txtZip.Text, out _zipInput);
+            if (_isNumber == true)
+            Main.Content = new CurrentWeatherPage(_apiData);
         }
 
         private void btnForecast_Click(object sender, RoutedEventArgs e)
         {
             txtDescription.Visibility = Visibility.Hidden;
-            Main.Content = new WeeklyForecastPage(apiData);
+            Main.Content = new WeeklyForecastPage(_apiData);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -53,17 +44,15 @@ namespace WeatherApplication
 
         private void btnZip_Click(object sender, RoutedEventArgs e)
         {            
-            GetData acquireData = new GetData();
-            isNumber = int.TryParse(txtZip.Text, out zipInput);
-            if (isNumber == true)
-                 apiData = acquireData.getWeather(zipInput.ToString());
-            if (apiData != null)
-            {
-                Main.Content = new CurrentWeatherPage(apiData);
-                txtDescription.Visibility = Visibility.Hidden;
-                btnCurrent.IsEnabled = true;
-                btnForecast.IsEnabled = true;
-            }
+            var acquireData = new GetData();
+            _isNumber = int.TryParse(txtZip.Text, out _zipInput);
+            if (_isNumber == true)
+                 _apiData = acquireData.GetWeather(_zipInput.ToString());
+            if (_apiData == null) return;
+            Main.Content = new CurrentWeatherPage(_apiData);
+            txtDescription.Visibility = Visibility.Hidden;
+            btnCurrent.IsEnabled = true;
+            btnForecast.IsEnabled = true;
         }
         protected override void OnClosing(CancelEventArgs e)
         {

@@ -8,11 +8,11 @@ namespace WeatherApplication
 {
     class ConvertDegrees
     {
-        public double convertFahrenheit(double input)
+        public double ConvertFahrenheit(double input)
         {
             return Convert.ToInt32(input * (9d / 5d) - 459.67);
         }
-        public double convertCelsius(double input)
+        public double ConvertCelsius(double input)
         {
             return Convert.ToInt32(input - 273.15);
         }

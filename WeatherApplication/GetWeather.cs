@@ -21,7 +21,7 @@ namespace WeatherApplication
         public class RootObject
         {
             public Coord Coord { get; set; }
-            public string @base { get; set; }
+            public string Base { get; set; }
             public int Visibility { get; set; }
             public int Dt { get; set; }
             public int Id { get; set; }
