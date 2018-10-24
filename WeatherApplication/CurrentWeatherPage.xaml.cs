@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,6 +32,7 @@ namespace WeatherApplication
            //imgIcon.Source = image;
 
             if (_apiData == null) return;
+
             var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(_apiData);
             DetermineColor(Convert.ToInt32(darkResult.Currently.Temperature));
             var test = darkResult.Currently.Icon;
@@ -54,6 +56,12 @@ namespace WeatherApplication
             txtSunrise.Content = $"{DateTime(darkResult.Daily.Data[0].SunriseTime.ToString())}"; //sunrise time output;
             txtSunset.Content = $"{DateTime(darkResult.Daily.Data[0].SunsetTime.ToString())}"; //sunet time output
             txtRain.Content = $"{darkResult.Currently.PrecipProbability * 100}%";
+            
+            if (darkResult.Alerts == null) return;
+
+
+
+            //int x = 0;
             //iconURL = $"@\"../../images/{darkResult.currently.icon}.png"";                
             //imgIcon.Source = image;
 
@@ -63,7 +71,7 @@ namespace WeatherApplication
             //timer.Interval = new TimeSpan(0, 0, 0, 0, 30);
             //timer.Start();
 
-            //var count = darkResult.alerts[0].description.Count() * -1;
+            var count = darkResult.Alerts[0].Description.Count() * -1;
             //DoubleAnimation doubleAnimation = new DoubleAnimation();
             //doubleAnimation.From = canMain.ActualWidth;
             //doubleAnimation.To = -txtMarquee.ActualWidth + count;

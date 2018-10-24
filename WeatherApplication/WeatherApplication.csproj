@@ -173,5 +173,8 @@
     <EmbeddedResource Include="sleet.png" />
     <EmbeddedResource Include="snow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="exclamation.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -48,7 +48,11 @@ namespace WeatherApplication
             _isNumber = int.TryParse(txtZip.Text, out _zipInput);
             if (_isNumber == true)
                  _apiData = acquireData.GetWeather(_zipInput.ToString());
-            if (_apiData == null) return;
+            if (_apiData == null)
+            {
+                MessageBox.Show("Please enter a valid United States Zip Code.");
+                return;
+            }
             Main.Content = new CurrentWeatherPage(_apiData);
             txtDescription.Visibility = Visibility.Hidden;
             btnCurrent.IsEnabled = true;
