@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace WeatherApplication
 {
@@ -19,6 +20,11 @@ namespace WeatherApplication
             _apiData = data;
             InitializeComponent();
         }
+
+        public CurrentWeatherPage()
+        {
+            InitializeComponent();
+        } //Overload Constructor requiring no passed in data. 
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -36,18 +42,10 @@ namespace WeatherApplication
             var darkResult = JsonConvert.DeserializeObject<GetDarkSky.RootObject>(_apiData);
             DetermineColor(Convert.ToInt32(darkResult.Currently.Temperature));
             var test = darkResult.Currently.Icon;
-            txtName.Visibility = Visibility.Visible;
-            txtDegree.Visibility = Visibility.Visible;
-            txtWeather.Visibility = Visibility.Visible;
-            txtClouds.Visibility = Visibility.Visible;
-            txtWind.Visibility = Visibility.Visible;
-            txtPressure.Visibility = Visibility.Visible;
-            txtCoordinates.Visibility = Visibility.Visible;
-            txtSunrise.Visibility = Visibility.Visible;
-            txtSunset.Visibility = Visibility.Visible;
-            txtRain.Visibility = Visibility.Visible;
+            ShowHideObjects(Visibility.Visible); // Calls ShowHideObjects method which accepts a Visibility Object to Hide or Show all of the text box elements for the current weather report.
             txtDegree.Content = Convert.ToInt32(darkResult.Currently.Temperature).ToString();
             txtWeather.Content = $"{darkResult.Currently.Summary.First().ToString().ToUpper()}{darkResult.Currently.Summary.Substring(1)}";
+            DetermineIcon(darkResult.Currently.Icon);
             txtName.Content = darkResult.Currently.Cityname;
             txtWind.Content = $"{darkResult.Currently.WindSpeed} mph";
             txtClouds.Content = $"{darkResult.Currently.CloudCover * 100}%";
@@ -170,6 +168,29 @@ namespace WeatherApplication
 
 
         }//Changes color of the temperature text based on degrees. 
+
+        private void DetermineIcon(string iconName)
+        {
+            BitmapImage weatherLogo = new BitmapImage();
+            weatherLogo.BeginInit();
+            weatherLogo.UriSource = new Uri($"../../Resources/Images/{iconName}.png", UriKind.Relative);
+            weatherLogo.EndInit();
+            imgWeather.Source = weatherLogo;
+        }
+
+        public void ShowHideObjects(Visibility status)
+        {
+            txtName.Visibility = status;
+            txtDegree.Visibility = status;
+            txtWeather.Visibility = status;
+            txtClouds.Visibility = status;
+            txtWind.Visibility = status;
+            txtPressure.Visibility = status;
+            txtCoordinates.Visibility = status;
+            txtSunrise.Visibility = status;
+            txtSunset.Visibility = status;
+            txtRain.Visibility = status;
+        }
     }
 
 }

@@ -13,7 +13,8 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Weather Program" Height="450" Width="1030" Loaded="Window_Loaded">
+        ResizeMode="NoResize"
+        Title="Weather Program" Height="475" Width="1030" Loaded="Window_Loaded">
     <Grid Width="1030" Margin="0,0,-8,-2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="93*"/>
@@ -23,7 +24,7 @@
             <Button x:Name="btnCurrent" Content="Current" MinWidth="100 " Click="btnCurrent_Click" Margin="160,0,0,0" ToolTip="Current Weather Report" />
             <Button x:Name="btnForecast" Content="Forecast" MinWidth="100" Margin="10,0,0,0" Click="btnForecast_Click" ToolTip="Seven Day Forecast"/>
             <Button x:Name="btnZip" Content="Update Zip" MinWidth="100" Margin="300,2,0,1" Click="btnZip_Click" ToolTip="Update Weather By Zipcode"/>
-            <TextBox x:Name="txtZip" TextWrapping="Wrap" Text="29579" Width="120" Height="25" Margin="15,5,0,5" Foreground="#DDFFFFFF"/>
+            <TextBox x:Name="txtZip" TextWrapping="Wrap" Text="29579" Width="120" Height="25" Margin="15,5,0,5" Foreground="#DDFFFFFF" MaxLength="5" MaxLines="1"/>
         </StackPanel>
         <Frame x:Name="Main" Margin="-75,88,-75,0" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Width="1030"/>
         <Label x:Name="txtDescription" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Width="1030" HorizontalContentAlignment="Center" Visibility="Visible" Margin="-75,88,-75,0" Grid.ColumnSpan="2" />

@@ -52,6 +52,17 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Images\eclipseicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -147,7 +158,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lightrain.gif" />
+    <Resource Include="Resources\Images\lightrain.gif" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -162,19 +173,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="clear-day.png" />
-    <EmbeddedResource Include="clear-night.png" />
-    <EmbeddedResource Include="cloudy.png" />
+    <Resource Include="Resources\Images\clear-day.png" />
+    <Resource Include="Resources\Images\clear-night.png" />
+    <Resource Include="Resources\Images\cloudy.png" />
     <EmbeddedResource Include="dunno.png" />
-    <EmbeddedResource Include="fog.png" />
-    <EmbeddedResource Include="partly-cloudy-day.png" />
-    <EmbeddedResource Include="partly-cloudy-night.png" />
-    <EmbeddedResource Include="rain.png" />
-    <EmbeddedResource Include="sleet.png" />
-    <EmbeddedResource Include="snow.png" />
+    <Resource Include="Resources\Images\fog.png" />
+    <Resource Include="Resources\Images\partly-cloudy-day.png" />
+    <Resource Include="Resources\Images\partly-cloudy-night.png" />
+    <Resource Include="Resources\Images\rain.png" />
+    <Resource Include="Resources\Images\sleet.png" />
+    <Resource Include="Resources\Images\snow.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="exclamation.jpg" />
+    <Resource Include="Resources\Images\exclamation.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\eclipseicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\eclipsewithbackground.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

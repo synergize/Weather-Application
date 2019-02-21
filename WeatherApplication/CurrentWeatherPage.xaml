@@ -10,90 +10,91 @@
     <Grid Margin="0,-10,0,10">
 
 
-        <Label x:Name="txtDegree" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Width="442" HorizontalContentAlignment="Center" Visibility="Visible" Loaded="txtDegree_Loaded" Margin="314,106,274,0">
+        <Label x:Name="txtDegree" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Width="442" HorizontalContentAlignment="Center" Visibility="Visible" Loaded="txtDegree_Loaded" Margin="314,97,274,0">
             <Label.Effect>
                 <DropShadowEffect/>
             </Label.Effect>
         </Label>
-        <Label x:Name="txtWeather" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" Width="442" FontSize="20" HorizontalContentAlignment="Center" Foreground="White" Visibility="Visible" Margin="314,64,274,0">
+        <Label x:Name="txtWeather" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" Width="442" FontSize="20" HorizontalContentAlignment="Center" Foreground="White" Visibility="Visible" Margin="314,55,274,0">
             <Label.Effect>
                 <DropShadowEffect/>
             </Label.Effect>
         </Label>
 
 
-        <Label x:Name="txtName" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" Margin="314,10,274,0" Foreground="White" Width="442" HorizontalContentAlignment="Center" Visibility="Visible">
+        <Label x:Name="txtName" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" Margin="314,1,274,0" Foreground="White" Width="442" HorizontalContentAlignment="Center" Visibility="Visible">
             <Label.Effect>
                 <DropShadowEffect/>
             </Label.Effect>
         </Label>
-        <Grid Margin="270,159,218,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="291">
-            <Label Content="Wind Speed:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="18" Margin="11,17,0,0" Width="208">
+        <Grid Margin="270,151,218,-8" HorizontalAlignment="Center" VerticalAlignment="Center" Height="307">
+            <Label Content="Wind Speed:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="18" Margin="11,47,0,0" Width="208">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label Content="Cloud Coverage:" HorizontalAlignment="Left" Margin="11,57,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="266">
+            <Label Content="Cloud Coverage:" HorizontalAlignment="Left" Margin="11,87,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="266">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label Content="Pressure:" HorizontalAlignment="Left" Margin="11,107,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="153">
+            <Label Content="Pressure:" HorizontalAlignment="Left" Margin="11,137,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="153">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label Content="Chance of Rain:" HorizontalAlignment="Left" Margin="315,107,-25,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="252">
+            <Label Content="Chance of Rain:" HorizontalAlignment="Left" Margin="315,137,-25,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="252">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label Content="Sunrise:" HorizontalAlignment="Left" Margin="315,17,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" RenderTransformOrigin="0.176,0.5" Width="137">
+            <Label Content="Sunrise:" HorizontalAlignment="Left" Margin="315,47,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" RenderTransformOrigin="0.176,0.5" Width="137">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label Content="Sunset:" HorizontalAlignment="Left" Margin="315,57,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="127">
+            <Label Content="Sunset:" HorizontalAlignment="Left" Margin="315,87,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="127">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtWind" Content="Label" HorizontalAlignment="Left" Margin="131,17,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
+            <Label x:Name="txtWind" Content="Label" HorizontalAlignment="Left" Margin="131,47,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtClouds" Content="Label" HorizontalAlignment="Left" Margin="158,57,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" RenderTransformOrigin="0,0.559" Width="auto">
+            <Label x:Name="txtClouds" Content="Label" HorizontalAlignment="Left" Margin="158,87,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" RenderTransformOrigin="0,0.559" Width="auto">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtPressure" Content="Label" HorizontalAlignment="Left" Margin="99,107,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
+            <Label x:Name="txtPressure" Content="Label" HorizontalAlignment="Left" Margin="99,137,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtRain" Content="Label" HorizontalAlignment="Left" Margin="462,107,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
+            <Label x:Name="txtRain" Content="Label" HorizontalAlignment="Left" Margin="462,137,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtSunrise" Content="Label" HorizontalAlignment="Left" Margin="389,17,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
+            <Label x:Name="txtSunrise" Content="Label" HorizontalAlignment="Left" Margin="389,47,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto" ToolTip="Local Time">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtCoordinates" Content="Label" HorizontalAlignment="Left" Margin="158,163,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
+            <Label x:Name="txtCoordinates" Content="Label" HorizontalAlignment="Left" Margin="158,193,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Visibility="Visible" Width="auto">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
-            <Label x:Name="txtSunset" Content="Label" HorizontalAlignment="Left" Margin="389,57,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Width="auto">
+            <Label x:Name="txtSunset" Content="Label" HorizontalAlignment="Left" Margin="389,87,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Width="auto" ToolTip="Local Time">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
         </Grid>
+        <Image x:Name="imgWeather" HorizontalAlignment="Left" Height="100" Margin="314,19,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Page>
